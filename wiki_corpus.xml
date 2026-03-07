@@ -6,12 +6,12 @@
     <word lemma="ábilqasım" pos="PROPER_NOUN">Ábilqasım</word>
     <word lemma="ferdawsiy" pos="PROPER_NOUN">Ferdawsiy</word>
     <word lemma="-" pos="SYM">-</word>
-    <word lemma="parsı-tájik" pos="NOUN">parsı-tájik</word>
+    <word lemma="parsı-tájik" pos="NOUN_COMPOUND">parsı-tájik</word>
     <word lemma="klassik" pos="ADJ" morph="ler - plur, i - 3thdPs, niń - Case">klassikleriniń</word>
     <word lemma="arasında" pos="ADVERB">arasında</word>
     <word lemma="kórnekli" pos="ADJ">kórnekli</word>
     <word lemma="orın" pos="NOUN" morph="dı - case">orındı</word>
-    <word lemma="unknown" pos="unknown">iyeleydi.</word>
+    <word lemma="iye" pos="NOUN" morph="ley - di">iyeleydi.</word>
   </sentence>
   <sentence id="2">
     <word lemma="ol" pos="pronoun">Ol</word>
@@ -20,20 +20,20 @@
     <word lemma="aqırı" pos="ADVERB">aqırı</word>
     <word lemma="XI" pos="RNUM">XI</word>
     <word lemma="ásir" pos="NOUN" morph="diń">ásirdiń</word>
-    <word lemma="baslarında" pos="unknown">baslarında</word>
+    <word lemma="baslarında" pos="ADV">baslarında</word>
     <word lemma="934" pos="ARNUM">934</word>
     <word lemma="-" pos="SYM">-</word>
     <word lemma="jıl" pos="NOUN" morph="ı - 3thPS">jılı</word>
-    <word lemma="unknown" pos="unknown">Tús</word>
+    <word lemma="tús" pos="N_Location">Tús</word>
     <word lemma="qala" pos="NOUN" morph="sı-nıń">qalasınıń</word>
-    <word lemma="unknown" pos="unknown">átirapındaǵı</word>
-    <word lemma="unknown" pos="unknown">Bats</word>
-    <word lemma="unknown" pos="unknown">awılında</word>
-    <word lemma="unknown" pos="unknown">dúnyaǵa</word>
+    <word lemma="átirap" pos="NOUN" morph="ın - da - ǵı">átirapındaǵı</word>
+    <word lemma="bats" pos="N_Lolaction">Bats</word>
+    <word lemma="awıl" pos="NOUN" morph="ın - da">awılında</word>
+    <word lemma="dúnya" pos="NOUN" morph="ǵa - Case">dúnyaǵa</word>
     <word lemma="kel" pos="VERB" morph="gen">kelgen.</word>
   </sentence>
   <sentence id="3">
-    <word lemma="unknown" pos="unknown">Onıń</word>
+    <word lemma="Ol" pos="pronoun" morph="ol(pronoun)+nıń(case)=onıń; l - phoneme deletion">Onıń</word>
     <word lemma="biz" pos="pronoun" morph="ge">bizge</word>
     <word lemma="miyras" pos="PROPER_NOUN">miyras</word>
     <word lemma="unknown" pos="unknown">bolıp</word>
@@ -19597,3 +19597,4 @@
     <word lemma="unknown" pos="unknown">Kategoriya:Haywanlar</word>
   </sentence>
 </Corpus>
+
