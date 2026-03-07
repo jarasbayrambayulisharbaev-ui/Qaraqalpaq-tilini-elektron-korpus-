@@ -11,7 +11,8 @@
     <word lemma="arasında" pos="ADVERB">arasında</word>
     <word lemma="kórnekli" pos="ADJ">kórnekli</word>
     <word lemma="orın" pos="NOUN" morph="dı - case">orındı</word>
-    <word lemma="iye" pos="NOUN" morph="ley - di">iyeleydi.</word>
+    <word lemma="iye" pos="NOUN" morph="ley - di">iyeleydi</word>
+    <word lemma="." pos="SYM" >.</word>
   </sentence>
   <sentence id="2">
     <word lemma="ol" pos="pronoun">Ol</word>
@@ -35,14 +36,15 @@
   <sentence id="3">
     <word lemma="Ol" pos="pronoun" morph="ol(pronoun)+nıń(case)=onıń; l - phoneme deletion">Onıń</word>
     <word lemma="biz" pos="pronoun" morph="ge">bizge</word>
-    <word lemma="miyras" pos="PROPER_NOUN">miyras</word>
-    <word lemma="unknown" pos="unknown">bolıp</word>
+    <word lemma="miyras" pos="PROPER_NOUN" morph="ı - 3POSS_PER">miyras</word>
+    <word lemma="bol" pos="VERB" morph="ıp - v_deriv">bolıp</word>
     <word lemma="qal" pos="NOUN" morph="ǵan">qalǵan</word>
-    <word lemma="unknown" pos="unknown">Shaxnama</word>
-    <word lemma="unknown" pos="unknown">(Shaxlar</word>
-    <word lemma="unknown" pos="unknown">kitabı</word>
+    <word lemma="shaxnama" pos="COMPOUND_NOUN" morph="shax-noun/nama-noun">Shaxnama</word>
+    <word lemma="(" pos="SYM">(</word>
+    <word lemma="shax" pos="noun" morph="lar - plur">(Shaxlar</word>
+    <word lemma="kitap" pos="NOUN" morph="ı - 3PER_POSS; phonem b dissimilation">kitabı</word>
     <word lemma="yamasa" pos="conjunction">yamasa</word>
-    <word lemma="unknown" pos="unknown">Shaxlar</word>
+    <word lemma="shax" pos="NOUN" morph="lar - plur">Shaxlar</word>
     <word lemma="unknown" pos="unknown">tarıyxı)</word>
     <word lemma="unknown" pos="unknown">kitabı</word>
     <word lemma="unknown" pos="unknown">120mıń</word>
@@ -19597,4 +19599,5 @@
     <word lemma="unknown" pos="unknown">Kategoriya:Haywanlar</word>
   </sentence>
 </Corpus>
+
 
