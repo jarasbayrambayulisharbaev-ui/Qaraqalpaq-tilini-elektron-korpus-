@@ -41,12 +41,13 @@
     <word lemma="qal" pos="NOUN" morph="ǵan">qalǵan</word>
     <word lemma="shaxnama" pos="COMPOUND_NOUN" morph="shax-noun/nama-noun">Shaxnama</word>
     <word lemma="(" pos="SYM">(</word>
-    <word lemma="shax" pos="noun" morph="lar - plur">(Shaxlar</word>
+    <word lemma="shax" pos="noun" morph="lar - plur">Shaxlar</word>
     <word lemma="kitap" pos="NOUN" morph="ı - 3PER_POSS; phonem b dissimilation">kitabı</word>
     <word lemma="yamasa" pos="conjunction">yamasa</word>
     <word lemma="shax" pos="NOUN" morph="lar - plur">Shaxlar</word>
-    <word lemma="unknown" pos="unknown">tarıyxı)</word>
-    <word lemma="unknown" pos="unknown">kitabı</word>
+    <word lemma="unknown" pos="unknown">tarıyxı</word>
+    <word lemma=")" pos="SYM">)</word>
+    <word lemma="kitap" pos="NOUN" morph="ı - 3PER_POSS; phonem b dissimilation">kitabı</word>
     <word lemma="unknown" pos="unknown">120mıń</word>
     <word lemma="qatar" pos="NOUN" morph="dan">qatardan</word>
     <word lemma="unknown" pos="unknown">aslam</word>
@@ -19599,5 +19600,6 @@
     <word lemma="unknown" pos="unknown">Kategoriya:Haywanlar</word>
   </sentence>
 </Corpus>
+
 
 
