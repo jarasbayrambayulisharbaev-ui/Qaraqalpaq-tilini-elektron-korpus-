@@ -1,6 +1,6 @@
 // Global maǵlıwmatlar bazası
 let databases = {
-    xmlDoc: null, // XML-di pútinliginshe saqlaymız (gáplerdi tabıw ushın)
+    xmlDoc: null, 
     n2: [],
     n3: [],
     n4: [],
@@ -41,37 +41,48 @@ function showSection(id) {
     document.getElementById(`section-${id}`).classList.remove('d-none');
     document.querySelectorAll('.list-group-item').forEach(i => i.classList.remove('active'));
     
-    // Event handling for sidebar
-    if (event && event.currentTarget) {
-        event.currentTarget.classList.add('active');
+    if (window.event && window.event.currentTarget) {
+        window.event.currentTarget.classList.add('active');
     }
 }
 
-// XML Qidiruv - Gáp tarkibinde kórsetiw
+// XML Qidiruv - Kaa-Latn XML strukturasiga moslashtirilgan
 function handleXMLSearch() {
     const query = document.getElementById('xmlInput').value.toLowerCase();
-    const type = document.getElementById('xmlType').value;
+    const type = document.getElementById('xmlType').value; // 'word', 'pos' yoki 'lemma'
     const out = document.getElementById('xmlOutput');
     out.innerHTML = "";
 
     if (!query || !databases.xmlDoc) return;
 
-    const sentences = databases.xmlDoc.getElementsByTagName("sentence");
+    // XML-da 'phrase' teglari asosiy birlik
+    const phrases = databases.xmlDoc.getElementsByTagName("phrase");
     let matchFound = false;
 
-    // Hár bir gápti analiz qılıw
-    for (let s = 0; s < sentences.length; s++) {
-        const words = sentences[s].getElementsByTagName("word");
+    for (let s = 0; s < phrases.length; s++) {
+        const iwords = phrases[s].getElementsByTagName("iword");
         let sentenceHTML = "";
         let sentenceHasMatch = false;
 
-        for (let w = 0; w < words.length; w++) {
-            const wordNode = words[w];
-            const wordText = wordNode.textContent;
-            const attrVal = (type === 'word' ? wordText : wordNode.getAttribute(type) || "").toLowerCase();
+        for (let w = 0; w < iwords.length; w++) {
+            const iword = iwords[w];
+            
+            // XML-dan kerakli ma'lumotlarni olish
+            const txtNode = iword.querySelector('item[type="txt"]');
+            const posNode = iword.querySelector('item[type="pos"]');
+            const glsNode = iword.querySelector('item[type="gls"]');
 
-            // Qıdırılǵan sóz bolsa highlight qılıw
-            if (attrVal.includes(query)) {
+            const wordText = txtNode ? txtNode.textContent : "";
+            const posText = posNode ? posNode.textContent : "";
+            const lemmaText = glsNode ? glsNode.textContent : "";
+
+            // Qidiruv turiga qarab tekshirish
+            let attrVal = "";
+            if (type === 'word') attrVal = wordText;
+            else if (type === 'pos') attrVal = posText;
+            else if (type === 'lemma') attrVal = lemmaText;
+
+            if (attrVal.toLowerCase().includes(query)) {
                 sentenceHasMatch = true;
                 matchFound = true;
                 sentenceHTML += `<span class="search-highlight" onclick="showDetailedAnalysis(${s}, ${w})">${wordText}</span> `;
@@ -83,9 +94,13 @@ function handleXMLSearch() {
         if (sentenceHasMatch) {
             out.innerHTML += `
                 <div class="col-12 mb-3">
-                    <div class="result-card shadow-sm p-3">
+                    <div class="result-card shadow-sm p-3 bg-white rounded">
                         <div class="sentence-box">${sentenceHTML.trim()}</div>
-                        <div class="mt-2"><small class="text-muted text-uppercase" style="font-size: 0.65rem;">Gáp ID: ${sentences[s].getAttribute('id') || s+1}</small></div>
+                        <div class="mt-2">
+                            <small class="text-muted text-uppercase" style="font-size: 0.65rem;">
+                                Phrase Index: ${s + 1}
+                            </small>
+                        </div>
                     </div>
                 </div>`;
         }
@@ -98,13 +113,17 @@ function handleXMLSearch() {
 
 // Detallı morfologiyalıq tahlil (Modal oyna)
 function showDetailedAnalysis(sIndex, wIndex) {
-    const sentence = databases.xmlDoc.getElementsByTagName("sentence")[sIndex];
-    const wordNode = sentence.getElementsByTagName("word")[wIndex];
+    const phrase = databases.xmlDoc.getElementsByTagName("phrase")[sIndex];
+    const iword = phrase.getElementsByTagName("iword")[wIndex];
 
-    const word = wordNode.textContent;
-    const lemma = wordNode.getAttribute('lemma') || '—';
-    const pos = wordNode.getAttribute('pos') || '—';
-    const morph = wordNode.getAttribute('morph') || 'Standard (qosımshasız)';
+    const word = iword.querySelector('item[type="txt"]')?.textContent || '—';
+    const lemmaFull = iword.querySelector('item[type="gls"]')?.textContent || '—';
+    const pos = iword.querySelector('item[type="pos"]')?.textContent || '—';
+    
+    // Lemma va morfologiyani gls ichidan ajratib olish (sodda usul)
+    const lemmaParts = lemmaFull.split('=');
+    const baseLemma = lemmaParts[0];
+    const morphology = lemmaParts.length > 1 ? lemmaParts[1] : 'Standard (qosımshasız)';
 
     document.getElementById('modalWordTitle').innerText = `"${word}" sózi tahlili`;
     document.getElementById('modalBodyContent').innerHTML = `
@@ -112,62 +131,52 @@ function showDetailedAnalysis(sIndex, wIndex) {
             <table class="table table-borderless">
                 <tr>
                     <th class="text-muted" style="width: 40%">Tiykar (Asos):</th>
-                    <td class="fw-bold text-primary h5">${lemma}</td>
+                    <td class="fw-bold text-primary h5">${baseLemma}</td>
                 </tr>
                 <tr>
-                    <th class="text-muted">Sóz shaqabı:</th>
+                    <th class="text-muted">Sóz shaqabı (POS):</th>
                     <td><span class="badge bg-info p-2">${pos}</span></td>
                 </tr>
                 <tr>
-                    <th class="text-muted">Morfemalar:</th>
-                    <td class="text-danger fw-bold">${morph}</td>
+                    <th class="text-muted">Morfologiya/Gloss:</th>
+                    <td class="text-danger fw-bold">${morphology}</td>
                 </tr>
             </table>
             <hr>
             <div class="mt-3 p-3 bg-light rounded italic text-center">
-                <span class="text-dark h4">${lemma}</span> 
-                <span class="text-danger h4"> + ${morph === 'Standard (qosımtasız)' ? '∅' : morph}</span>
+                <span class="text-dark h4">${baseLemma}</span> 
+                <span class="text-danger h4"> + ${morphology === 'Standard (qosımshasız)' ? '∅' : morphology}</span>
             </div>
         </div>
     `;
 
-    // Bootstrap modaldı shıǵarıw
     const modalElement = document.getElementById('analysisModal');
     const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
     modalInstance.show();
 }
 
-// N-Gram Tahlili
+// N-Gram va Word Results funksiyalari o'zgarishsiz qoladi...
 function handleNGram(n) {
     const query = document.getElementById('ngramInput').value.toLowerCase();
     const out = document.getElementById('ngramOutput');
     const data = databases[`n${n}`];
-    
-    if (!query) return;
-
+    if (!query || !data) return;
     out.innerHTML = `<h5 class="mb-3 text-success">${n}-Gram boyınsha natiyjeler:</h5>`;
     const results = data.filter(line => line.toLowerCase().includes(query));
-
     if (results.length > 0) {
         results.forEach(res => {
-            out.innerHTML += `
-                <div class="ngram-item p-2 mb-2 bg-white rounded shadow-sm border-start border-success border-3">
-                    <i class="bi bi-hash text-success me-2"></i> ${res}
-                </div>`;
+            out.innerHTML += `<div class="ngram-item p-2 mb-2 bg-white rounded shadow-sm border-start border-success border-3">${res}</div>`;
         });
     } else {
         out.innerHTML += `<p class="text-muted">Sáykes birikpeler tabılmadı.</p>`;
     }
 }
 
-// Word Results Tahlili
 function loadWordResults() {
     const out = document.getElementById('wordResultsOutput');
-    if (databases.words.length === 0) return;
-    
+    if (!out || databases.words.length === 0) return;
     out.innerHTML = databases.words.map(w => `
         <div class="list-group-item list-group-item-action border-0 border-bottom d-flex align-items-center">
-            <i class="bi bi-check2-circle text-warning me-3"></i>
             <span class="small">${w}</span>
         </div>
     `).join('');
